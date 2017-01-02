@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 
+use App\News;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,8 +14,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
+Route::group(['prefix' => 'v1', 'middleware' => ['auth:api', 'cors']], function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
+    });
+
+    Route::get('/news', function (News $news) {
+        return $news->getLastFiveNews();
     });
 });
