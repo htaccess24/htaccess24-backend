@@ -19,7 +19,15 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api', 'cors']], function 
         return $request->user();
     });
 
+    Route::get('/news/top', function (News $news) {
+        return $news->getLastFiveNews('front');
+    });
+
+    Route::get('/news/images', function (News $news) {
+        return $news->getLastFiveNews('images');
+    });
+
     Route::get('/news', function (News $news) {
-        return $news->getLastFiveNews();
+        return $news->getLastFiveNews('imageless');
     });
 });

@@ -30,12 +30,59 @@ class News extends Authenticatable {
      */
     protected $hidden = [];
 
-    public function getLastFiveNews () {
-        $getNews = News::orderBy('created_at', 'desc')->take(5)->get();
+    public $topNewsOnFront = [];
+    public $topNewsWithImages = [];
+    public $topNewsWithoutImages = [];
 
-        //return
-        return Response::json($getNews, 200);
+    private function setTopNewsFront ($topNews) {
+        $this->topNewsOnFront[] = $topNews;
     }
 
+    private function getTopNewsFront () {
+        return $this->topNewsOnFront;
+    }
+    private function setTopNewsWithImages ($topNews) {
+        $this->topNewsWithImages[] = $topNews;
+    }
 
+    private function getTopNewsWithImages () {
+        return $this->topNewsWithImages;
+    }
+
+    private function setTopNewsWithoutImages ($topNews) {
+        $this->topNewsWithoutImages[] = $topNews;
+    }
+
+    private function getTopNewsWithoutImages () {
+        return $this->topNewsWithoutImages;
+    }
+
+    public function getLastFiveNews ($type) {
+        $getNews = News::orderBy('created_at', 'desc')->take(6)->get();
+
+        foreach($getNews as $i => $news) {
+            $getNews->map(function($getNews, $i) {
+                ($i <= 2) ? $getNews['withImage'] = 1 : $getNews['withImage'] = 0;
+
+                $getNews['position'] = $i + 1;
+                return $getNews;
+            });
+
+            if ($news->withImage == 1 && $news->position == '1') {
+                $this->setTopNewsFront($news);
+            } elseif ($news->withImage == 1 && $news->position > '1') {
+                $this->setTopNewsWithImages($news);
+            } else {
+                $this->setTopNewsWithoutImages($news);
+            }
+        }
+
+        if ($type == 'front') {
+            return Response::json($this->getTopNewsFront(), 200);
+        } elseif ($type == 'images') {
+            return Response::json($this->getTopNewsWithImages(), 200);
+        } elseif ($type == 'imageless') {
+            return Response::json($this->getTopNewsWithoutImages(), 200);
+        }
+    }
 }
