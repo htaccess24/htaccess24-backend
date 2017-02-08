@@ -20,6 +20,7 @@ class CreateNewsTable extends Migration
             $table->string('short_description');
             $table->text('content');
             $table->string('image_url');
+            $table->smallInteger('reading_time');
             $table->timestamps();
         });
     }

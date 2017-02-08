@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Jason',
             'email' => 'jason@htaccess24.de',
             'password' => bcrypt('at45DxaPJa'),
-            'api_token' => str_random(60)
+            'api_token' => 'CIrHb9Vr1OOibuKcm9ppvxEviy9g3tKOxgDL6Ni5fkr72GjneExctSIjlFsX'
         ]);
     }
 }

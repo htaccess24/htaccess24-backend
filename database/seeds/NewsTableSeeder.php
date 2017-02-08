@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class NewsTableSeeder extends Seeder
@@ -13,11 +14,14 @@ class NewsTableSeeder extends Seeder
     {
         for ($i = 0; $i <= 10; $i++) {
             DB::table('news')->insert([
-                'slug'              => str_random(10),
-                'name'              => str_random(10),
-                'short_description' => str_random(100),
-                'content'           => str_random(300),
+                'slug'              => 'hello-world'. $i,
+                'name'              => 'hello-world'. $i,
+                'short_description' => 'hello-world'. $i,
+                'content'           => 'hello-world'. $i,
                 'image_url'         => 'https://placehold.it/300x200',
+                'reading_time'      => $i,
+                'created_at'        => Carbon::now(),
+                'updated_at'        => Carbon::now()
             ]);
         }
     }
