@@ -84,5 +84,13 @@ class News extends Authenticatable {
         } elseif ($type == 'imageless') {
             return Response::json($this->getTopNewsWithoutImages(), 200);
         }
+
+        return false;
+    }
+
+    public function getArticleInformation($slug) {
+        $getArticleInformation = News::where('slug', '=', $slug)->limit(1)->get();
+
+        return Response::json($getArticleInformation, 200);
     }
 }

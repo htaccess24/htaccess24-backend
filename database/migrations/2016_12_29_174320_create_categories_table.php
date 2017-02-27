@@ -17,6 +17,9 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('slug');
             $table->string('name');
+            $table->string('description');
+            $table->string('image_url');
+            $table->enum('on_homepage', [0, 1]);
             $table->timestamps();
         });
     }

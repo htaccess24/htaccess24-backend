@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 
 use App\News;
+use App\Category;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,4 +31,16 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api', 'cors']], function 
     Route::get('/news', function (News $news) {
         return $news->getLastFiveNews('imageless');
     });
+
+    Route::get('/categories/frontpage', function (Category $categories) {
+        return $categories->getFrontpageCategories();
+    });
+
+    Route::get('/categories/{id}', 'ApiController@index');
+
+    Route::get('/categories', function (Category $categories) {
+        return $categories->getAllCategories();
+    });
+
+    Route::get('/article/information/{slug}', 'ApiController@getArticleInformation');
 });
