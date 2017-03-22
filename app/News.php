@@ -11,6 +11,7 @@ namespace app;
 use Response;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Passport\HasApiTokens;
 
 class News extends Authenticatable {
@@ -22,6 +23,7 @@ class News extends Authenticatable {
      * @var array
      */
     protected $fillable = [];
+    protected $table = 'news';
 
     /**
      * The attributes that should be hidden for arrays.

@@ -43,4 +43,6 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api', 'cors']], function 
     });
 
     Route::get('/article/information/{slug}', 'ApiController@getArticleInformation');
+
+    Route::post('/article/rate/{articleId}/{value}/{guid}', 'ApiController@addArticleRating');
 });

@@ -17,6 +17,7 @@ class NewsToCategories extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->integer('news_id')->unsigned();
+            $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('news_id')->references('id')->on('news');
